@@ -1,0 +1,1 @@
+{"version":3,"file":"SlashCommand.js","sourceRoot":"","sources":["../../src/structures/SlashCommand.ts"],"names":[],"mappings":"AAAA,OAAO,EAEL,sBAAsB,GAGvB,MAAM,YAAY,CAAC;AACpB,OAAO,EAAE,OAAO,EAAE,MAAM,cAAc,CAAC;AAEvC,MAAM,OAAgB,YAAa,SAAQ,OAAoC;IAG7E,YAAY,IAAyD;QACnE,KAAK,CAAC,IAAI,CAAC,IAAI,EAAE,sBAAsB,CAAC,SAAS,CAAC,CAAC;QACnD,IAAI,CAAC,IAAI,GAAG,IAAI,CAAC;IACnB,CAAC;CACF"}

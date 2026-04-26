@@ -1,0 +1,1 @@
+{"version":3,"file":"Button.js","sourceRoot":"","sources":["../../src/structures/Button.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,MAAM,cAAc,CAAC;AAGvC,MAAM,OAAgB,aAAc,SAAQ,OAA0B;IACpE,YAAmB,QAAgB;QACjC,KAAK,CAAC,QAAQ,EAAE,WAAW,CAAC,CAAC;QADZ,aAAQ,GAAR,QAAQ,CAAQ;IAEnC,CAAC;CACF"}
