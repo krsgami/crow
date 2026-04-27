@@ -16,10 +16,16 @@
     "declaration": false,
     "sourceMap": true,
     "noEmit": false,
+    // "paths": {
+    //   "@/*": [
+    //     "./src/*"
+    //   ]
+    // }
   },
   "include": [
-    "src/**/*"
-, "src/events/guild/giveExp.ts"  ],
+    "src/**/*",
+    "src/events/guild/giveExp.ts"
+  ],
   "exclude": [
     "node_modules"
   ]

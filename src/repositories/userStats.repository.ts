@@ -1,5 +1,5 @@
-import { supabase } from "../structures/supabase.js";
-import type { Database } from "../types/database.types.js";
+import { supabase } from "../structures/Supabase.structure.js";
+import type { Database } from "../types/Database.js";
 
 type UserStatsRow = Database["public"]["Tables"]["user_stats"]["Row"];
 type UserStatsInsert = Database["public"]["Tables"]["user_stats"]["Insert"];

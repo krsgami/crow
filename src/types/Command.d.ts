@@ -4,11 +4,11 @@ import {
   type CommandInteractionInteraction,
   type ApplicationCommandType,
 } from "discord.js";
-import type { CROW } from "../structures/crow";
+import type { CrowClient } from "../structures/Client.structure.ts";
 
 export interface ICommand {
   data: SlashCommandBuilder;
   category: string;
   type: ApplicationCommandType;
-  execute: (interaction: CommandInteraction, crow: CROW) => Promise<void>;
+  execute: (interaction: CommandInteraction, crow: CrowClient) => Promise<void>;
 }

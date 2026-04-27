@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, MessageFlags, } from "discord.js";
-import { SlashCommand } from "../../structures/SlashCommand.js";
+import { SlashCommand } from "../../structures/SlashCommand.structure.js";
 export default class PingCommand extends SlashCommand {
     constructor() {
         super(new SlashCommandBuilder()

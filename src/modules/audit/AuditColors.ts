@@ -1,0 +1,25 @@
+import type { ColorResolvable } from "discord.js";
+
+export const auditColors = {
+  success: "Green",
+  danger: "Red",
+  warning: "Yellow",
+  info: "Blurple",
+  neutral: "Grey",
+  memberAdd: "Green",
+  memberRemove: "Red",
+  memberUpdate: "Orange",
+  roleCreate: "Green",
+  roleDelete: "Red",
+  roleUpdate: "Yellow",
+  channelCreate: "Green",
+  channelDelete: "Red",
+  channelUpdate: "Orange",
+  messageDelete: "Red",
+  messageBulkDelete: "DarkRed",
+  messageUpdate: "Orange",
+  voiceMove: "Blurple",
+  moderation: "DarkRed",
+  command: "Blurple",
+  error: "Red",
+} satisfies Record<string, ColorResolvable>;

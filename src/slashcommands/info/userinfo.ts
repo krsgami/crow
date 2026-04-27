@@ -3,7 +3,7 @@ import {
   type ChatInputCommandInteraction,
   MessageFlags,
 } from "discord.js";
-import { SlashCommand } from "../../structures/SlashCommand.js";
+import { SlashCommand } from "../../structures/SlashCommand.structure.js";
 import { UserInfoEmbed } from "../../embeds/userinfo.js";
 
 export default class UserInfoCommand extends SlashCommand {

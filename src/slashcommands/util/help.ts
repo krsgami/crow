@@ -5,8 +5,8 @@ import {
   SlashCommandBuilder,
   type ChatInputCommandInteraction,
 } from "discord.js";
-import { SlashCommand } from "../../structures/SlashCommand.js";
-import type { CROW } from "../../structures/crow.js";
+import { SlashCommand } from "../../structures/SlashCommand.structure.js";
+import type { CrowClient } from "../../structures/Client.structure.js";
 
 export default class HelpCommand extends SlashCommand {
   constructor() {
@@ -18,7 +18,7 @@ export default class HelpCommand extends SlashCommand {
   }
 
   async execute(interaction: ChatInputCommandInteraction) {
-    const client = interaction.client as CROW;
+    const client = interaction.client as CrowClient;
     const guild = interaction.guild!;
 
     const apiCommands = await guild.commands.fetch();

@@ -1,0 +1,1 @@
+{"version":3,"file":"SelectMenu.structure.js","sourceRoot":"","sources":["../../src/structures/SelectMenu.structure.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,MAAM,wBAAwB,CAAC;AAGjD,MAAM,OAAgB,iBAAkB,SAAQ,OAAoC;IAClF,YAAmB,QAAgB;QACjC,KAAK,CAAC,QAAQ,EAAE,WAAW,CAAC,CAAC;QADZ,aAAQ,GAAR,QAAQ,CAAQ;IAEnC,CAAC;CACF"}

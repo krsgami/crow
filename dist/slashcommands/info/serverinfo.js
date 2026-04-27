@@ -1,6 +1,6 @@
 import { EmbedBuilder, MessageFlags, SlashCommandBuilder, } from "discord.js";
-import { Guild } from "../../utils/Guild.js";
-import { SlashCommand } from "../../structures/SlashCommand.js";
+import { Guild } from "../../utils/Guild.util.js";
+import { SlashCommand } from "../../structures/SlashCommand.structure.js";
 export default class ServerInfoCommand extends SlashCommand {
     constructor() {
         super(new SlashCommandBuilder()

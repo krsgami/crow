@@ -1,4 +1,4 @@
-import { supabase } from "../structures/supabase.js";
+import { supabase } from "../structures/Supabase.structure.js";
 export async function getGuildMember(guildId, userId) {
     const { data, error } = await supabase
         .from("guild_members")

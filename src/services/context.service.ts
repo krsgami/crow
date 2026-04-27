@@ -21,7 +21,7 @@ import {
   createGuildMember,
   getGuildMember,
 } from "../repositories/guildMembers.repository.js";
-import { supabase } from "../structures/supabase.js";
+import { supabase } from "../structures/Supabase.structure.js";
 
 export async function getOrCreateUser(discordUser: User) {
   let user = await getUserByDiscordId(discordUser.id);

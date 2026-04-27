@@ -1,0 +1,1 @@
+{"version":3,"file":"Modal.structure.js","sourceRoot":"","sources":["../../src/structures/Modal.structure.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,MAAM,wBAAwB,CAAC;AAGjD,MAAM,OAAgB,YAAa,SAAQ,OAA+B;IACxE,YAAmB,QAAgB;QACjC,KAAK,CAAC,QAAQ,EAAE,WAAW,CAAC,CAAC;QADZ,aAAQ,GAAR,QAAQ,CAAQ;IAEnC,CAAC;CACF"}

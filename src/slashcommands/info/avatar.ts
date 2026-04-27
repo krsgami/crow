@@ -4,7 +4,7 @@ import {
   SlashCommandBuilder,
   type ChatInputCommandInteraction,
 } from "discord.js";
-import { SlashCommand } from "../../structures/SlashCommand.js";
+import { SlashCommand } from "../../structures/SlashCommand.structure.js";
 
 export default class AvatarCommand extends SlashCommand {
   constructor() {

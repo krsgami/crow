@@ -1,14 +1,25 @@
 import dotenv from "dotenv";
 dotenv.config({ path: ".env" });
-if (process.env.NODE_ENV === "development ") {
+if (process.env.NODE_ENV === "development") {
     dotenv.config({ path: ".env.development", override: true });
 }
-if (process.env.NODE_ENV === "production ") {
+if (process.env.NODE_ENV === "production") {
     dotenv.config({ path: ".env.production", override: true });
 }
-import { CROW } from "./structures/crow.js";
+import { CrowClient } from "./structures/Client.structure.js";
 import chalk from "chalk";
-const client = new CROW();
+import { GatewayIntentBits, Partials } from "discord.js";
+const client = new CrowClient({
+    intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.GuildMembers,
+        GatewayIntentBits.GuildPresences,
+        GatewayIntentBits.MessageContent,
+        GatewayIntentBits.DirectMessages,
+    ],
+    partials: [Partials.Message, Partials.Channel],
+});
 (async () => {
     await client.initialize().catch((error) => {
         console.error(chalk.redBright("[ERROR] "), "Falha ao inicializar o bot:", error);

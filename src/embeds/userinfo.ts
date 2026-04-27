@@ -10,7 +10,7 @@ import {
   type ContextMenuCommandBuilder,
   type Client,
 } from "discord.js";
-import { Guild } from "../utils/Guild.js";
+import { Guild } from "../utils/Guild.util.js";
 import { ensureUserContext } from "../services/context.service.js";
 
 export async function UserInfoEmbed(

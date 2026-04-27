@@ -1,5 +1,5 @@
 import { EmbedBuilder, MessageFlags, SlashCommandBuilder, } from "discord.js";
-import { SlashCommand } from "../../structures/SlashCommand.js";
+import { SlashCommand } from "../../structures/SlashCommand.structure.js";
 export default class AvatarCommand extends SlashCommand {
     constructor() {
         super(new SlashCommandBuilder()

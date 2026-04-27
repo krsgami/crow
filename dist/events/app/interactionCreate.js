@@ -1,5 +1,5 @@
 import { Events, MessageFlags } from "discord.js";
-import { Logger } from "../../utils/Logger.js";
+import { Logger } from "../../utils/Logger.util.js";
 const handled = new Set();
 export default {
     name: Events.InteractionCreate,
@@ -17,10 +17,10 @@ export default {
             return;
         }
         handled.add(interaction.id);
-        const crow = interaction.client;
-        const command = crow.commands.get(interaction.commandName);
+        const client = interaction.client;
+        const command = client.commands.get(interaction.commandName);
         if (!command) {
-            crow.logger.error(`Nenhum comando correspondente a ${interaction.commandName} foi encontrado.`);
+            client.logger.error(`Nenhum comando correspondente a ${interaction.commandName} foi encontrado.`);
             if (!interaction.replied && !interaction.deferred) {
                 await interaction
                     .reply({
@@ -52,7 +52,7 @@ export default {
             catch { }
         };
         const executeCommand = async () => {
-            await command.execute(interaction, crow);
+            await command.execute(interaction, client);
         };
         try {
             if (interaction.isChatInputCommand() ||
@@ -61,7 +61,7 @@ export default {
             }
         }
         catch (error) {
-            crow.logger.error(error, `Erro ao executar ${interaction.commandName}:`);
+            client.logger.error(error, `Erro ao executar ${interaction.commandName}:`);
             if (error.code === 10062 || error.code === 40060)
                 return;
             await sendError();

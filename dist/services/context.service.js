@@ -3,7 +3,7 @@ import { createUserStats, getUserStatsByUserId, } from "../repositories/userStat
 import { createGuild, getGuildByDiscordId, upsertGuild, } from "../repositories/guilds.repository.js";
 import { createGuildSettings, getGuildSettings, } from "../repositories/guildSettings.repository.js";
 import { createGuildMember, getGuildMember, } from "../repositories/guildMembers.repository.js";
-import { supabase } from "../structures/supabase.js";
+import { supabase } from "../structures/Supabase.structure.js";
 export async function getOrCreateUser(discordUser) {
     let user = await getUserByDiscordId(discordUser.id);
     if (!user) {

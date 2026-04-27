@@ -1,5 +1,5 @@
-import { supabase } from "../structures/supabase.js";
-import type { Database, Json } from "../types/database.types.js";
+import { supabase } from "../structures/Supabase.structure.js";
+import type { Database, Json } from "../types/Database.js";
 
 type GuildSettingsRow = Database["public"]["Tables"]["guild_settings"]["Row"];
 type GuildSettingsInsert =

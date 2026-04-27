@@ -1,4 +1,4 @@
-import { supabase } from "../structures/supabase.js";
+import { supabase } from "../structures/Supabase.structure.js";
 import { ensureUserContextById } from "./context.service.js";
 function getLevelUpExp(level) {
     return Math.round(level * 2.25);

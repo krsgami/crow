@@ -1,6 +1,6 @@
 import { Events, MessageFlags, type CommandInteraction } from "discord.js";
-import type { CROW } from "../../structures/crow.ts";
-import { Logger } from "../../utils/Logger.js";
+import type { CrowClient } from "../../structures/Client.structure.js";
+import { Logger } from "../../utils/Logger.util.js";
 
 const handled = new Set<string>();
 
@@ -21,10 +21,10 @@ export default {
     }
     handled.add(interaction.id);
 
-    const crow = interaction.client as CROW;
-    const command = crow.commands.get(interaction.commandName);
+    const client = interaction.client as CrowClient;
+    const command = client.commands.get(interaction.commandName);
     if (!command) {
-      crow.logger.error(
+      client.logger.error(
         `Nenhum comando correspondente a ${interaction.commandName} foi encontrado.`,
       );
 
@@ -59,7 +59,7 @@ export default {
     };
 
     const executeCommand = async () => {
-      await command.execute(interaction, crow);
+      await command.execute(interaction, client);
     };
 
     try {
@@ -70,7 +70,7 @@ export default {
         await executeCommand();
       }
     } catch (error: any) {
-      crow.logger.error(error, `Erro ao executar ${interaction.commandName}:`);
+      client.logger.error(error, `Erro ao executar ${interaction.commandName}:`);
 
       if (error.code === 10062 || error.code === 40060) return;
 

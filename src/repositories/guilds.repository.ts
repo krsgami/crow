@@ -1,4 +1,4 @@
-import { supabase } from "../structures/supabase.js";
+import { supabase } from "../structures/Supabase.structure.js";
 
 export async function getGuildByDiscordId(discordGuildId: string) {
   const { data, error } = await supabase
