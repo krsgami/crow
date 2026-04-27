@@ -1,14 +1,15 @@
 import { Events } from "discord.js";
 import { supabase } from "../../structures/Supabase.structure.js";
 import chalk from "chalk";
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 export default {
     name: Events.ClientReady,
     once: true,
     async execute(client) {
-        for (const guild of client.guilds.cache.values()) {
+        for (const [guildId, guild] of client.guilds.cache) {
             try {
                 const fetchedGuild = await guild.fetch();
-                const members = await fetchedGuild.members.fetch();
+                const members = fetchedGuild.members.cache;
                 const guildRow = {
                     discord_guild_id: fetchedGuild.id,
                     name: fetchedGuild.name,
@@ -70,6 +71,7 @@ export default {
                     }
                 }
                 client.logger.info(`${chalk.greenBright("Supabase")} sincronização completa para o servidor ${chalk.magentaBright(fetchedGuild.name)}`);
+                await sleep(30000);
             }
             catch (error) {
                 client.logger.error(`Falha ao sincronizar o servidor ${guild.id}:\u200b ${error}`);
