@@ -27,6 +27,9 @@ export class CrowClient extends Client {
   public commands = new Collection<string, ICommand>();
   public logger = Logger;
   public auditService: AuditService;
+  public bootstraps = {
+    guildSyncStarted: false,
+  };
 
   public constructor(options: ClientOptions) {
     super(options);

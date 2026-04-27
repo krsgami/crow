@@ -15,6 +15,9 @@ export class CrowClient extends Client {
         super(options);
         this.commands = new Collection();
         this.logger = Logger;
+        this.bootstraps = {
+            guildSyncStarted: false,
+        };
         this.auditService = new AuditService(this, Guild.channels.logs);
     }
     async loadCommands(commandPath) {

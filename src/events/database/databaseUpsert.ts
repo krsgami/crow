@@ -9,6 +9,12 @@ export default {
   name: Events.ClientReady,
   once: true,
   async execute(client: CrowClient) {
+   
+    if (client.bootstraps.guildSyncStarted) 
+      return;
+  
+    client.bootstraps.guildSyncStarted = true;
+
     for (const [guildId, guild] of client.guilds.cache) {
       try {
         const fetchedGuild = await guild.fetch();

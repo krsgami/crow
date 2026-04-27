@@ -8,7 +8,7 @@ export default {
   async execute(client: CrowClient) {
     client.user &&
       client.logger.info(
-        `Logado como ${chalk.magentaBright(client.user.username)}`
+        `Logado como ${chalk.magentaBright(client.user.username)}`,
       );
   },
 };
