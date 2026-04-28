@@ -1,6 +1,7 @@
 import { EmbedBuilder, } from "discord.js";
 import { Guild } from "../utils/Guild.util.js";
 import { ensureUserContext } from "../services/context.service.js";
+import { getBoostBadge } from "../functions/booster.function.js";
 export async function UserInfoEmbed(targetUser, targetMember, executor, command, client) {
     const { stats } = await ensureUserContext(targetUser);
     function getJoinPositionFromCache(member) {
@@ -24,13 +25,21 @@ export async function UserInfoEmbed(targetUser, targetMember, executor, command,
     const badgeList = badges
         .map((badge) => badgeEmojis[badge])
         .filter((value) => Boolean(value));
-    const hasNitro = targetUser.avatarURL({ size: 1024 })?.includes("animated=true") ||
-        targetMember?.avatarURL({ size: 1024 })?.includes("animated=true") ||
-        Boolean(targetUser.banner) ||
-        Boolean(targetMember?.banner);
-    if (hasNitro) {
+    const hasAnimatedAvatar = targetUser.avatar?.startsWith("a_") ||
+        targetMember?.user.avatar?.startsWith("a_") ||
+        targetUser.displayAvatarURL({ size: 1024 }).endsWith(".gif");
+    const targetMFetch = await targetMember?.fetch();
+    const targetUFetch = await targetUser.fetch();
+    const banner = targetMFetch?.displayBannerURL({ size: 1024 }) ??
+        targetUFetch.bannerURL({ size: 1024 });
+    const boost = getBoostBadge(targetMFetch);
+    const hasBanner = (targetMFetch && Boolean(targetMFetch.banner)) ||
+        Boolean(targetUFetch?.banner);
+    const hasNitro = Boolean(hasAnimatedAvatar || hasBanner);
+    if (hasNitro)
         badgeList.push(Guild.emojis.nitro_badge);
-    }
+    if (boost.isBooster)
+        badgeList.push(boost.emoji);
     const rawStatus = (targetMember?.presence?.status ??
         "offline");
     const statusEmojis = {
@@ -58,7 +67,9 @@ export async function UserInfoEmbed(targetUser, targetMember, executor, command,
         5: "Competindo",
     };
     const activityType = activity ? activityTypes[activity.type] : "";
-    const activityName = activity?.name ?? "";
+    const activityName = activity?.type === 4
+        ? (activity.state ?? "Custom Status")
+        : (activity?.name ?? "");
     const activityText = activity ? `| ${activityType} \`${activityName}\`` : "";
     const rolesText = targetMember
         ? (() => {
@@ -123,6 +134,13 @@ export async function UserInfoEmbed(targetUser, targetMember, executor, command,
         iconURL: client.user?.displayAvatarURL({ size: 1024 }),
     })
         .setTimestamp();
+    if (boost.isBooster) {
+        embed.addFields({
+            name: "Impulsionador",
+            value: `${boost.emoji} - ${boost.tier} - \`${boost.years} ${boost.years === 1 ? "ano" : "anos"}\` \`${boost.months} ${boost.months === 1 ? "mês" : "meses"}\` \`${boost.days} ${boost.days === 1 ? "dia" : "dias"}\` \`${boost.hours} ${boost.hours === 1 ? "hora" : "horas"}\` \`${boost.minutes} ${boost.minutes === 1 ? "minuto" : "minutos"}\` \`${boost.seconds} ${boost.seconds === 1 ? "segundo" : "segundos"}\``,
+            inline: false,
+        });
+    }
     if (stats) {
         embed.addFields({
             name: "Nível",
@@ -138,11 +156,8 @@ export async function UserInfoEmbed(targetUser, targetMember, executor, command,
             inline: true,
         });
     }
-    const bannerUrl = targetMember?.bannerURL({ size: 1024 }) ??
-        targetUser.bannerURL({ size: 1024 }) ??
-        null;
-    if (bannerUrl) {
-        embed.setImage(bannerUrl);
+    if (hasBanner) {
+        embed.setImage(banner || null);
     }
     return embed;
 }
