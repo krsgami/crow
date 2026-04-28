@@ -21,7 +21,7 @@ export const Guild = {
     idle_status: "<:idle_status:1460098934075686924>",
     off_status: "<:off_status:1460098931248594944>",
 
-    boost_1: "<a:boost_1:1498548678775017502>",
+    boost_1: "<a:boost_1:1498548688849469521>",
     boost_2: "<a:boost_2:1498548678775017502>",
     boost_3: "<a:boost_3:1498548687436255422>",
     boost_6: "<a:boost:1498548686098006118>",
