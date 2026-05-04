@@ -201,7 +201,7 @@ export async function UserInfoEmbed(
         inline: false,
       },
     )
-    .setColor(targetUser.accentColor ?? "Orange")
+    .setColor(targetMember?.roles.highest.colors.primaryColor ?? "Orange")
     .setFooter({
       text: `${client.user?.username ?? "App"} - ${command.name}`,
       iconURL: client.user?.displayAvatarURL({ size: 1024 }),
