@@ -15,6 +15,7 @@ export const Guild = {
         quest_badge: "<:quest_badge:1459567183242723438>",
         orbs_badge: "<:orbs_badge:1459567178381525083>",
         nitro_badge: "<:nitro_badge:1498550771908608081>",
+        active_developer: "<:active_developer:1500697877717057687>",
         online_status: "<:online_status:1460098932523663484>",
         dnd_status: "<:dnd_status:1460098930082840596>",
         idle_status: "<:idle_status:1460098934075686924>",

@@ -1,4 +1,4 @@
-import { EmbedBuilder, } from "discord.js";
+import { EmbedBuilder, ApplicationCommandType, } from "discord.js";
 import { Guild } from "../utils/Guild.util.js";
 import { ensureUserContext } from "../services/context.service.js";
 import { getBoostBadge } from "../functions/booster.function.js";
@@ -39,10 +39,12 @@ export async function UserInfoEmbed(targetUser, targetMember, executor, command,
     const hasBanner = (targetMFetch && Boolean(targetMFetch.banner)) ||
         Boolean(targetUFetch?.banner);
     const hasNitro = Boolean(hasAnimatedAvatar || hasBanner);
-    if (hasNitro)
+    if (hasNitro && !targetUser.bot)
         badgeList.push(Guild.emojis.nitro_badge);
     if (boost.isBooster)
         badgeList.push(boost.emoji);
+    if (targetUser.bot)
+        badgeList.push(Guild.emojis.active_developer);
     const rawStatus = (targetMember?.presence?.status ??
         "offline");
     const statusEmojis = {
@@ -144,7 +146,7 @@ export async function UserInfoEmbed(targetUser, targetMember, executor, command,
             inline: false,
         });
     }
-    if (stats) {
+    if (stats && !targetUser.bot) {
         embed.addFields({
             name: "Nível",
             value: `\`Nível ${stats.level}\``,
@@ -157,6 +159,29 @@ export async function UserInfoEmbed(targetUser, targetMember, executor, command,
             name: "XP",
             value: `\`${stats.exp}/${stats.level_up_exp} xp\``,
             inline: true,
+        });
+    }
+    if (targetUser.bot) {
+        let botCommands = "Nenhum";
+        if (targetUser.bot) {
+            const commands = await client.application?.commands.fetch();
+            const guildCommands = await targetMember.guild.commands.fetch();
+            botCommands =
+                commands
+                    ?.filter((cmd) => cmd.type === ApplicationCommandType.ChatInput)
+                    .map((cmd) => `</${cmd.name}:${cmd.id}>`)
+                    .slice(0, 10)
+                    .join(" ") ||
+                    guildCommands
+                        .filter((cmd) => cmd.type === ApplicationCommandType.ChatInput)
+                        .map((cmd) => `</${cmd.name}:${cmd.id}>`)
+                        .join(" ") ||
+                    "Nenhum";
+        }
+        embed.addFields({
+            name: "Comandos",
+            value: botCommands,
+            inline: false,
         });
     }
     if (hasBanner) {
