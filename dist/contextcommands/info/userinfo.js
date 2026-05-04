@@ -4,7 +4,7 @@ import { UserInfoEmbed } from "../../embeds/userinfo.js";
 export default class UserInfoContextCommand extends ContextCommand {
     constructor() {
         super(new ContextMenuCommandBuilder()
-            .setName("Informações")
+            .setName("Informações do Usuário")
             .setType(ApplicationCommandType.User));
     }
     async execute(interaction) {

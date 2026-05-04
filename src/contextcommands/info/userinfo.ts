@@ -11,7 +11,7 @@ export default class UserInfoContextCommand extends ContextCommand {
   constructor() {
     super(
       new ContextMenuCommandBuilder()
-        .setName("Informações")
+        .setName("Informações do Usuário")
         .setType(ApplicationCommandType.User),
     );
   }
