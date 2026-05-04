@@ -21,6 +21,7 @@ import {
   createGuildMember,
   getGuildMember,
 } from "../repositories/guildMembers.repository.js";
+import { getUserFavoritesByUserId } from "../repositories/userFavorites.repository.js";
 import { supabase } from "../structures/Supabase.structure.js";
 
 export async function getOrCreateUser(discordUser: User) {
@@ -43,6 +44,10 @@ export async function getOrCreateUserStats(userId: number) {
   }
 
   return stats;
+}
+
+export async function getUserFavorites(userId: number) {
+  return getUserFavoritesByUserId(userId);
 }
 
 export async function getOrCreateGuild(discordGuild: Guild) {
@@ -80,8 +85,9 @@ export async function getOrCreateGuildMember(guildId: number, userId: number) {
 export async function ensureUserContext(discordUser: User) {
   const user = await getOrCreateUser(discordUser);
   const stats = await getOrCreateUserStats(user.id);
+  const favorites = await getUserFavorites(user.id);
 
-  return { user, stats };
+  return { user, stats, favorites };
 }
 
 export async function ensureUserContextById(discordUserId: string) {
@@ -94,19 +100,19 @@ export async function ensureUserContextById(discordUserId: string) {
   if (userError) throw userError;
 
   if (!userData) {
-    // Create user if missing
     const { data: newUser, error } = await supabase
       .from("users")
       .insert({
         discord_user_id: discordUserId,
-        username: "Unknown", // Will be updated later if needed
+        username: "Unknown",
         is_bot: false,
       })
       .select()
       .single();
 
     if (error) throw error;
-    return { user: newUser!, stats: null };
+
+    return { user: newUser!, stats: null, favorites: [] };
   }
 
   const { data: statsData, error: statsError } = await supabase
@@ -117,40 +123,45 @@ export async function ensureUserContextById(discordUserId: string) {
 
   if (statsError) throw statsError;
 
-  if (!statsData) {
-    // Create stats if missing
+  let stats = statsData;
+
+  if (!stats) {
     const { data: newStats, error } = await supabase
       .from("user_stats")
       .insert({
         user_id: userData.id,
         level: 1,
         exp: 0,
-        level_up_exp: 5, // 5 * 1^2
+        level_up_exp: 5,
       })
       .select()
       .single();
 
     if (error) throw error;
-    return { user: userData, stats: newStats! };
+    stats = newStats!;
   }
 
-  return { user: userData, stats: statsData };
+  const favorites = await getUserFavoritesByUserId(userData.id);
+
+  return { user: userData, stats, favorites };
 }
 
 export async function ensureGuildContext(discordGuild: Guild) {
   const guild = await getOrCreateGuild(discordGuild);
+
   if (guild) {
     const settings = await getOrCreateGuildSettings(guild.id);
-
     return { guild, settings };
-  } else return null;
+  }
+
+  return null;
 }
 
 export async function ensureMemberContext(
   discordGuild: Guild,
   discordUser: User,
 ) {
-  const { user, stats } = await ensureUserContext(discordUser);
+  const { user, stats, favorites } = await ensureUserContext(discordUser);
   const guildContext = await ensureGuildContext(discordGuild);
 
   if (!guildContext?.guild) {
@@ -163,6 +174,7 @@ export async function ensureMemberContext(
   return {
     user,
     stats,
+    favorites,
     guild,
     settings,
     member,

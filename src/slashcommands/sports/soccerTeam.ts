@@ -22,12 +22,12 @@ const FOOTBALL_COMPETITIONS = [
   { name: "Primeira Liga", value: "PPL" },
 ];
 
-export default class TimeSlashCommand extends SlashCommand {
+export default class SoccerTeamSlashCommand extends SlashCommand {
   constructor() {
     super(
       new SlashCommandBuilder()
-        .setName("time")
-        .setDescription("Busca informações de um time")
+        .setName("soccerteam")
+        .setDescription("Busca informações de um time de futebol")
         .addStringOption((option) =>
           option
             .setName("competicao")

@@ -4,7 +4,7 @@ import {
   type Client,
 } from "discord.js";
 import type { FootballMatch } from "../../services/football_data.service.js";
-import { getEmbedColorFromClubColors } from "../../functions/teams.function.js";
+import { soccer } from "../../functions/teams.function.js";
 
 type FootballTeam = {
   id: number;
@@ -118,7 +118,7 @@ export async function TeamInfoEmbed(
         inline: false,
       },
     )
-    .setColor(getEmbedColorFromClubColors(team.clubColors))
+    .setColor(soccer.getEmbedColorFromClubColors(team.clubColors))
     .setFooter({
       text: `${client.user?.username ?? "App"} - ${interaction.commandName}`,
       iconURL: client.user?.displayAvatarURL({ size: 1024 }),

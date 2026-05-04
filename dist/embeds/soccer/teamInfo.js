@@ -1,5 +1,5 @@
 import { EmbedBuilder, } from "discord.js";
-import { getEmbedColorFromClubColors } from "../../functions/teams.function.js";
+import { soccer } from "../../functions/teams.function.js";
 function formatMatch(match) {
     if (!match)
         return "Não encontrada";
@@ -70,7 +70,7 @@ export async function TeamInfoEmbed(team, lastMatch, nextMatch, interaction, cli
         value: team.address || "Não informado",
         inline: false,
     })
-        .setColor(getEmbedColorFromClubColors(team.clubColors))
+        .setColor(soccer.getEmbedColorFromClubColors(team.clubColors))
         .setFooter({
         text: `${client.user?.username ?? "App"} - ${interaction.commandName}`,
         iconURL: client.user?.displayAvatarURL({ size: 1024 }),

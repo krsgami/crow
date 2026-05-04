@@ -1,4 +1,4 @@
-export function getEmbedColorFromClubColors(clubColors) {
+function getEmbedColorFromClubColors(clubColors) {
     if (!clubColors)
         return 0x57f287;
     const firstColor = clubColors
@@ -34,4 +34,41 @@ export function getEmbedColorFromClubColors(clubColors) {
     }
     return 0x57f287;
 }
+export const soccer = { getEmbedColorFromClubColors };
+function formatDate(date) {
+    if (!date)
+        return "N/A";
+    return new Intl.DateTimeFormat("pt-BR", {
+        dateStyle: "short",
+        timeStyle: "short",
+    }).format(new Date(date));
+}
+function getOpponentName(match, teamId) {
+    const opponent = match.opponents?.find((o) => o.opponent?.id !== teamId)?.opponent;
+    return opponent?.name ?? "Adversário desconhecido";
+}
+function getScore(match, teamId) {
+    if (!match.results?.length)
+        return "N/A";
+    const teamResult = match.results.find((r) => r.team_id === teamId);
+    const opponentResult = match.results.find((r) => r.team_id !== teamId);
+    if (!teamResult || !opponentResult)
+        return "N/A";
+    return `${teamResult.score} x ${opponentResult.score}`;
+}
+function getLastMatch(matches) {
+    return (matches.find((m) => m.status === "finished" || m.status === "canceled" || m.end_at) ?? null);
+}
+function getNextMatch(matches) {
+    return ([...matches]
+        .filter((m) => m.begin_at && m.status !== "finished" && m.status !== "canceled")
+        .sort((a, b) => new Date(a.begin_at).getTime() - new Date(b.begin_at).getTime())[0] ?? null);
+}
+export const esports = {
+    formatDate,
+    getOpponentName,
+    getScore,
+    getLastMatch,
+    getNextMatch,
+};
 //# sourceMappingURL=teams.function.js.map

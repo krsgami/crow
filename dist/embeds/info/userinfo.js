@@ -3,7 +3,7 @@ import { Guild } from "../../utils/Guild.util.js";
 import { ensureUserContext } from "../../services/context.service.js";
 import { getBoostBadge } from "../../functions/booster.function.js";
 export async function UserInfoEmbed(targetUser, targetMember, executor, command, client) {
-    const { stats } = await ensureUserContext(targetUser);
+    const { stats, favorites } = await ensureUserContext(targetUser);
     function getJoinPositionFromCache(member) {
         const sorted = [...member.guild.members.cache.values()]
             .filter((m) => m.joinedTimestamp != null)
@@ -158,6 +158,22 @@ export async function UserInfoEmbed(targetUser, targetMember, executor, command,
         }, {
             name: "XP",
             value: `\`${stats.exp}/${stats.level_up_exp} xp\``,
+            inline: true,
+        });
+    }
+    const footballFavorite = favorites.find((favorite) => favorite.category === "football_team");
+    const esportsFavorite = favorites.find((favorite) => favorite.category === "esports_team");
+    if (footballFavorite) {
+        embed.addFields({
+            name: "Time de futebol",
+            value: footballFavorite.short_name || footballFavorite.name,
+            inline: true,
+        });
+    }
+    if (esportsFavorite) {
+        embed.addFields({
+            name: "Time de e-sports",
+            value: esportsFavorite.name,
             inline: true,
         });
     }
