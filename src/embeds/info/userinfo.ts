@@ -11,9 +11,9 @@ import {
   type Client,
   ApplicationCommandType,
 } from "discord.js";
-import { Guild } from "../utils/Guild.util.js";
-import { ensureUserContext } from "../services/context.service.js";
-import { getBoostBadge } from "../functions/booster.function.js";
+import { Guild } from "../../utils/Guild.util.js";
+import { ensureUserContext } from "../../services/context.service.js";
+import { getBoostBadge } from "../../functions/booster.function.js";
 
 export async function UserInfoEmbed(
   targetUser: DJsUser,

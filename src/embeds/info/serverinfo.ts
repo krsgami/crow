@@ -8,7 +8,7 @@ import {
   type Client,
   ChannelType,
 } from "discord.js";
-import { Guild as GuildUtil } from "../utils/Guild.util.js";
+import { Guild as GuildUtil } from "../../utils/Guild.util.js";
 
 export async function ServerInfoEmbed(
   guild: Guild,

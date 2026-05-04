@@ -1,6 +1,6 @@
 import { ApplicationCommandType, ContextMenuCommandBuilder, MessageFlags, } from "discord.js";
 import { ContextCommand } from "../../structures/ContextMenu.structure.js";
-import { UserInfoEmbed } from "../../embeds/userinfo.js";
+import { UserInfoEmbed } from "../../embeds/info/userinfo.js";
 export default class UserInfoContextCommand extends ContextCommand {
     constructor() {
         super(new ContextMenuCommandBuilder()

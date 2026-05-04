@@ -3,8 +3,8 @@ import {
   type ChatInputCommandInteraction,
   type Client,
 } from "discord.js";
-import type { FootballMatch } from "../services/football_data.service.js";
-import { getEmbedColorFromClubColors } from "../functions/teams.function.js";
+import type { FootballMatch } from "../../services/football_data.service.js";
+import { getEmbedColorFromClubColors } from "../../functions/teams.function.js";
 
 type FootballTeam = {
   id: number;

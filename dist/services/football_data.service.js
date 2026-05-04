@@ -69,6 +69,9 @@ export async function getTeamByName(teamName, competitionCode = "BSA") {
 export async function searchTeams(query, competitionCode = "BSA") {
     const teams = await getTeamsByCompetition(competitionCode);
     const normalizedQuery = normalize(query);
+    if (!normalizedQuery) {
+        return teams.slice(0, 25);
+    }
     return teams
         .filter((team) => {
         const name = normalize(team.name);

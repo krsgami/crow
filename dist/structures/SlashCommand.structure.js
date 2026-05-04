@@ -5,5 +5,8 @@ export class SlashCommand extends Command {
         super(data.name, ApplicationCommandType.ChatInput);
         this.data = data;
     }
+    async autocomplete(_interaction) {
+        return;
+    }
 }
 //# sourceMappingURL=SlashCommand.structure.js.map

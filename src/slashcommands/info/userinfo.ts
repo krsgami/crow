@@ -4,7 +4,7 @@ import {
   MessageFlags,
 } from "discord.js";
 import { SlashCommand } from "../../structures/SlashCommand.structure.js";
-import { UserInfoEmbed } from "../../embeds/userinfo.js";
+import { UserInfoEmbed } from "../../embeds/info/userinfo.js";
 
 export default class UserInfoCommand extends SlashCommand {
   constructor() {

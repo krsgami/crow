@@ -14,6 +14,7 @@ export class CrowClient extends Client {
     constructor(options) {
         super(options);
         this.commands = new Collection();
+        this.buttons = new Collection();
         this.logger = Logger;
         this.bootstraps = {
             guildSyncStarted: false,
@@ -109,6 +110,27 @@ export class CrowClient extends Client {
             this.logger.error(`Falha ao carregar eventos: ${formatError(error)}`);
         }
     }
+    async loadButtons(buttonPath) {
+        try {
+            let buttonCount = 0;
+            const categories = readdirSync(buttonPath);
+            for (const category of categories) {
+                const categoriesPath = path.join(buttonPath, category);
+                const buttonFiles = readdirSync(categoriesPath).filter((file) => file.endsWith(".ts") || file.endsWith(".js"));
+                for (const file of buttonFiles) {
+                    const filePath = path.join(categoriesPath, file);
+                    const buttonImport = await import(`file://${filePath}`);
+                    const ButtonClass = buttonImport.default;
+                    const button = new ButtonClass();
+                    this.buttons.set(button.customId, button);
+                    this.logger.module(`Loaded button: ${button.customId}`);
+                }
+            }
+        }
+        catch (error) {
+            this.logger.error(`Falha ao carregar botões: ${formatError(error)}`);
+        }
+    }
     async registerSlashCommands() {
         try {
             const commands = Array.from(this.commands.values()).map((cmd) => cmd.data.toJSON());
@@ -128,10 +150,12 @@ export class CrowClient extends Client {
             const slashCommandPath = path.join(__dirname, "..", "slashcommands");
             const ctxCommandPath = path.join(__dirname, "..", "contextcommands");
             const eventPath = path.join(__dirname, "..", "events");
+            const buttonPath = path.join(__dirname, "..", "components", "buttons");
             this.logger.log(`${chalk.magentaBright("crow APP")} is starting...`);
             await this.loadCommands(slashCommandPath);
             await this.loadCommands(ctxCommandPath);
             await this.loadEvents(eventPath);
+            await this.loadButtons(buttonPath);
             await this.registerSlashCommands();
             await this.login(process.env.CROW_TOKEN).then(() => this.logger.success(`${chalk.magenta("crow")} iniciou com sucesso!`));
         }

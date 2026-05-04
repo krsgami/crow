@@ -1,11 +1,10 @@
 import {
-  EmbedBuilder,
   MessageFlags,
   SlashCommandBuilder,
   type ChatInputCommandInteraction,
 } from "discord.js";
 import { SlashCommand } from "../../structures/SlashCommand.structure.js";
-import { ServerInfoEmbed } from "../../embeds/serverinfo.js";
+import { ServerInfoEmbed } from "../../embeds/info/serverinfo.js";
 
 export default class ServerInfoCommand extends SlashCommand {
   constructor() {
