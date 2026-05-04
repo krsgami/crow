@@ -26,7 +26,7 @@ export async function UserInfoEmbed(targetUser, targetMember, executor, command,
         .map((badge) => badgeEmojis[badge])
         .filter((value) => Boolean(value));
     if (targetMember?.roles.cache.has(Guild.roles.gang_crow)) {
-        badgeList.push(":black_bird:");
+        badgeList.push(Guild.emojis.gang_crow);
     }
     const hasAnimatedAvatar = targetUser.avatar?.startsWith("a_") ||
         targetMember?.user.avatar?.startsWith("a_") ||

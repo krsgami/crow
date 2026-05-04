@@ -36,6 +36,7 @@ export const Guild = {
         nitro_emerald: "<:nitro_emerald:1498550776619073616>",
         nitro_diamond: "<:nitro_diamond:1498550775381491842>",
         nitro_bronze: "<:nitro_bronze:1498550773674414110>",
+        gang_crow: "<:crow:1500687371296047184>",
     },
     roles: {
         gang_crow: "1488200582790516918",
